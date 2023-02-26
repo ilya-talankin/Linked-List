@@ -1,12 +1,5 @@
 #include "linked_list.h"
 
-enum {
-    JUNIOR,
-    MIDDLE,
-    SENJOR,
-    OUT_RANGE
-};
-
 typedef struct Person {
     int user_id;
     unsigned age;
@@ -15,13 +8,8 @@ typedef struct Person {
     unsigned scores;
 } person_t;
 
-typedef struct Group {
-    int group_id;
-    list_t users_list;
-} group_t;
-
-bool users_equal(void* user_a, void* user_b) {
-    return (((person_t*)user_a)->user_id == ((person_t*)user_b)->user_id) && (((person_t*)user_a)->user_name == ((person_t*)user_b)->user_name);
+bool id_equal(void* person_a, void* person_b) {
+    return (((person_t*)person_a)->user_id == ((person_t*)person_b)->user_id) ;
 }
 
 int main() {
@@ -49,8 +37,17 @@ int main() {
     printf("Young age participants: %d\n", list_size(juniors));
     printf("Middle-aged participants: %d\n", list_size(middles));
     printf("Senjor participants: %d\n", list_size(senjors));
+
+    person_t junior1; // = ...
+    if (find(juniors, &junior1, id_equal)) {
+        //...
+    }
     /*
      * Обработка списков участников
      */
+    list_free(juniors);
+    list_free(middles);
+    list_free(senjors);
+
     return 0;
 }
